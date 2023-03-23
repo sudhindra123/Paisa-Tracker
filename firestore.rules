@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /transactions/{document=**} {
+     // allow read, write; 
+
+     allow create : if request.auth!=null;
+
+     allow read,delete : if request.auth.uid==resource.data.uid;
+    }
+  }
+}
+
+
+//to deploy the rules
+// firebase deploy --only firestore
+
+
+//firebase init
+//firebase login
+//firebase logout
+
+
+//deploying the site
+// npm run build
+// and then
+//firebase deploy
